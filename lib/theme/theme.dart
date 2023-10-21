@@ -5,7 +5,7 @@ import 'package:news/util/export.dart';
 
 class AppTheme extends ChangeNotifier {
   //
-  //*  this a singleton class that's mean we have only a single app theme state
+  //*  this is a singleton class that's mean we have only a single app theme state
   //
   static final _instance = AppTheme._();
   AppTheme._() {

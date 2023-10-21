@@ -36,6 +36,18 @@ class LocalDB {
     return _prefs?.getBool('hasSeenOnBording');
   }
 
+  Future<String?> getDefaultLocal() async {
+    await _init();
+    return _prefs?.getString('defaultLocal');
+  }
+
+  Future<void> setDefaultLocal(String defaultLocal) async {
+    await _init();
+    await _prefs?.setString('defaultLocal', defaultLocal);
+  }
+
+
+
 
 
   

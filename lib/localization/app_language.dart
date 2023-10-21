@@ -1,4 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
+import 'package:news/screens/pages/Home_Page/home_page_vm.dart';
+import 'package:news/util/export.dart';
 
 class AppLanguage extends ChangeNotifier {
   static final AppLanguage _instance = AppLanguage._();
@@ -8,24 +13,18 @@ class AppLanguage extends ChangeNotifier {
   factory AppLanguage() => _instance;
 
   Locale currentLocale = const Locale("en");
-  List<Locale> supportedLocales =const [Locale("en"), Locale("ar")];
+  List<Locale> supportedLocales = const [Locale("en"), Locale("ar")];
   VerticalDirection verticalDirection = VerticalDirection.up;
   bool isArabic = false;
 
+  void setLocale(String x) async {
+    currentLocale = Locale(x);
+    isArabic = !isArabic;
+    await localDB.setDefaultLocal(x);
+    // for news app 
+    Jiffy.setLocale(currentLocale.languageCode);
+    Provider.of<HomePageViewModal>(listen: false, scaffoldMessengerKey.currentState!.context).topHealines = null;
 
-
-  void switchLocale() {
-   switch (currentLocale.languageCode) {
-     case 'en':
-     currentLocale = const Locale('ar');
-     verticalDirection = VerticalDirection.up;
-     isArabic =!isArabic;
-     default:
-     currentLocale = const Locale('en');
-     verticalDirection = VerticalDirection.down;
-     isArabic =!isArabic;
-
-   }
     notifyListeners();
   }
 }
